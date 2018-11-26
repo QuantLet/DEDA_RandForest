@@ -72,6 +72,7 @@ print('The test error: %.4f'%rf.score(X_test,y_test))
 pd.DataFrame(confusion_matrix(y_test, rf.predict(X_test)), index=data.target_names, columns=data.target_names)
 
 
+
 # Extracting the first 10 trees from the random forest.
 
 # In[219]:
@@ -79,13 +80,7 @@ pd.DataFrame(confusion_matrix(y_test, rf.predict(X_test)), index=data.target_nam
 
 for i in np.arange(10):
     tree = rf.estimators_[i]
-    export_graphviz(
-        tree, 
-        out_file='tree.dot',
-        feature_names=list(X_train.columns),
-        rounded=True,
-        precision=4
-    )
+    export_graphviz(tree, out_file='tree.dot', feature_names=list(X_train.columns), rounded=True, precision=4)
     (graph,) = pydot.graph_from_dot_file('tree.dot')
     graph.write_png('RF_one_tree_no_%i.png'%i)
 img = mpimg.imread('RF_one_tree_no_%i.png'%i)
@@ -134,7 +129,10 @@ pd.DataFrame(confusion_matrix(y_test, tree.predict(X_test)), index=data.target_n
 # In[220]:
 
 
-feature_imp = pd.DataFrame(rf.feature_importances_,index=df.columns,columns=['features']).sort_values('features')
+feature_imp = pd.DataFrame(
+    rf.feature_importances_,
+    index=df.columns,
+    columns=['features']).sort_values('features')
 ax = feature_imp.plot(kind='barh', figsize=(12, 10), zorder=2)
 plt.xlabel('Feature Importance')
 plt.ylabel('Variable')
