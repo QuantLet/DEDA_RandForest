@@ -1,0 +1,15 @@
+Name of QuantLet : DEDA_RandForest
+
+Published in : 'DEDA'
+
+Description : 'Example code for Random Forest, extraction of single trees, feature importance, plotting classification maps and comparing random forest.'
+
+Keywords : 'Random forest, feature importance, classification, decision tree, comparision'
+
+See also : ''
+
+Author : Marius Sterling
+
+Submitted : November 26 2018 by Marius Sterling
+
+Example : 
