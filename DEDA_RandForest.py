@@ -5,7 +5,7 @@
 
 # Loading packages
 
-# In[236]:
+# In[1]:
 
 
 import pandas as pd
@@ -23,7 +23,7 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 
 # Loading data and showing description
 
-# In[237]:
+# In[2]:
 
 
 data = load_breast_cancer()
@@ -32,7 +32,7 @@ target = pd.Series(data.target)
 print(data.DESCR)
 
 
-# In[238]:
+# In[3]:
 
 
 print('The shape of the dataset is ',df.shape)
@@ -40,7 +40,7 @@ print('The shape of the dataset is ',df.shape)
 
 # Extracting the feature matrix (X) and the target values (y) in a training and test dataset
 
-# In[239]:
+# In[4]:
 
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -54,7 +54,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # Declaring and fitting a Random Forest classifier on the feature matrix and target values
 
-# In[218]:
+# In[5]:
 
 
 n_feature = len(data.feature_names)
@@ -67,21 +67,28 @@ rf = RandomForestClassifier(
     #bootstrap=True # 
 )
 rf.fit(X_train,y_train)
-print('The train error: %.4f'%rf.score(X_train,y_train))
-print('The test error: %.4f'%rf.score(X_test,y_test))
+print('The train accuracy: %.4f'%rf.score(X_train,y_train))
+print('The test accuracy: %.4f'%rf.score(X_test,y_test))
 pd.DataFrame(confusion_matrix(y_test, rf.predict(X_test)), index=data.target_names, columns=data.target_names)
-
 
 
 # Extracting the first 10 trees from the random forest.
 
-# In[219]:
+# In[6]:
 
 
 for i in np.arange(10):
     tree = rf.estimators_[i]
-    export_graphviz(tree, out_file='tree.dot', feature_names=list(X_train.columns), rounded=True, precision=4)
+    export_graphviz(
+        tree, 
+        out_file='tree.dot',
+        feature_names=list(X_train.columns),
+        rounded=True,
+        precision=4,
+        filled=True
+    )
     (graph,) = pydot.graph_from_dot_file('tree.dot')
+    graph.set_bgcolor('transparent')
     graph.write_png('RF_one_tree_no_%i.png'%i)
 img = mpimg.imread('RF_one_tree_no_%i.png'%i)
 plt.imshow(img)
@@ -91,58 +98,55 @@ plt.show(block=False)
 # ### Tree 1:
 # ![RF_one_tree_no_0](RF_one_tree_no_0.png)
 
-# In[242]:
+# In[7]:
 
 
 tree = rf.estimators_[0]
-print('The train error: %.4f'%tree.score(X_train,y_train))
-print('The test error: %.4f'%tree.score(X_test,y_test))
+print('The train accuracy: %.4f'%tree.score(X_train,y_train))
+print('The test accuracy: %.4f'%tree.score(X_test,y_test))
 pd.DataFrame(confusion_matrix(y_test, tree.predict(X_test)), index=data.target_names, columns=data.target_names)
 
 
 # ### Tree 2:
 # ![RF_one_tree_no_0](RF_one_tree_no_1.png)
 
-# In[ ]:
+# In[8]:
 
 
 tree = rf.estimators_[1]
-print('The train error: %.4f'%tree.score(X_train,y_train))
-print('The test error: %.4f'%tree.score(X_test,y_test))
+print('The train accuracy: %.4f'%tree.score(X_train,y_train))
+print('The test accuracy: %.4f'%tree.score(X_test,y_test))
 pd.DataFrame(confusion_matrix(y_test, tree.predict(X_test)), index=data.target_names, columns=data.target_names)
 
 
 # ### Tree 3:
 # ![RF_one_tree_no_0](RF_one_tree_no_2.png)
 
-# In[ ]:
+# In[9]:
 
 
 tree = rf.estimators_[2]
-print('The train error: %.4f'%tree.score(X_train,y_train))
-print('The test error: %.4f'%tree.score(X_test,y_test))
+print('The train accuracy: %.4f'%tree.score(X_train,y_train))
+print('The test accuracy: %.4f'%tree.score(X_test,y_test))
 pd.DataFrame(confusion_matrix(y_test, tree.predict(X_test)), index=data.target_names, columns=data.target_names)
 
 
 # ### Plotting feature importance
 
-# In[220]:
+# In[10]:
 
 
-feature_imp = pd.DataFrame(
-    rf.feature_importances_,
-    index=df.columns,
-    columns=['features']).sort_values('features')
+feature_imp = pd.DataFrame(rf.feature_importances_,index=df.columns,columns=['features']).sort_values('features')
 ax = feature_imp.plot(kind='barh', figsize=(12, 10), zorder=2)
 plt.xlabel('Feature Importance')
 plt.ylabel('Variable')
 plt.tight_layout()
-plt.savefig('RF_feature_importance.png', dpi=300)
+plt.savefig('RF_feature_importance.png', dpi=600, transparent=True)
 
 
 # ### Fitting Random Forrest for 2 most important features and plotting decision
 
-# In[221]:
+# In[11]:
 
 
 s = 100
@@ -153,14 +157,14 @@ rf = RandomForestClassifier(
     max_depth=3
 )
 rf.fit(X_train[lab],y_train)
-print('The train error: %.4f'%rf.score(X_train[lab],y_train))
-print('The test error: %.4f'%rf.score(X_test[lab],y_test))
+print('The train accuracy: %.4f'%rf.score(X_train[lab],y_train))
+print('The test accuracy: %.4f'%rf.score(X_test[lab],y_test))
 pd.DataFrame(confusion_matrix(y_test, rf.predict(X_test[lab])), index=data.target_names, columns=data.target_names)
 
 
 # Setting mesh grid for the map classification
 
-# In[222]:
+# In[12]:
 
 
 r = abs(X_train.max() - X_train.min())
@@ -176,7 +180,7 @@ xx, yy = np.meshgrid(
 
 # Setting colors for the plots
 
-# In[226]:
+# In[13]:
 
 
 n_classes = len(set(data.target))
@@ -190,12 +194,8 @@ else:
     colors = [cmap(i) for i in range(cmap.N)]
 
 
-# In[227]:
+# In[14]:
 
-
-
-   
-    
 
 plt.figure()
 ax = plt.gca()
@@ -228,13 +228,13 @@ plt.legend(
     fancybox=False
 )
 plt.tight_layout()
-plt.savefig('RF_contour.png',dpi=300)
+plt.savefig('RF_contour.png',dpi=300,transparent=True)
 plt.show()
 
 
 # Prediction probabilies for the different classes
 
-# In[232]:
+# In[15]:
 
 
 for cl in range(n_classes):
@@ -269,7 +269,7 @@ for cl in range(n_classes):
         fancybox=False
     )
     plt.tight_layout()
-    plt.savefig('RF_contour_prob_class_%i.png'%cl,dpi=300)
+    plt.savefig('RF_contour_prob_class_%i.png'%cl,dpi=300,transparent=True)
     plt.show()
 
 
@@ -277,7 +277,7 @@ for cl in range(n_classes):
 
 # ### Accuracy vs. number of trees
 
-# In[235]:
+# In[16]:
 
 
 rf = RandomForestClassifier(
@@ -299,23 +299,25 @@ res.plot('n_estimators')
 plt.ylabel('Accuracy')
 plt.xlabel('Number of trees')
 plt.legend(loc='center left',bbox_to_anchor=(1,0.5), title='Dataset',fancybox=False)
-plt.savefig('RF_accuracy_number_of_trees.png',dpi=300)
+plt.savefig('RF_accuracy_number_of_trees.png',dpi=300,transparent=True)
+plt.tight_layout()
 plt.show()
 
 
 # ### Accuracy vs. Number of Samples per leaf
 
-# In[150]:
+# In[17]:
 
 
 rf = RandomForestClassifier(
-    n_estimators=100,
+    n_estimators=500,
     max_features=min(10,n_feature),
     min_samples_leaf=1,
     random_state=42,
 )
+min_sample_class = min([sum(y_train==i) for i in set(y_train)])
 res = []
-for i in range(1,X_train.shape[0]//2):
+for i in range(1,min_sample_class):
     rf.min_samples_leaf = i
     rf.fit(X_train,y_train)
     d = dict({'min_samples_leaf':i})
@@ -327,17 +329,18 @@ res.plot('min_samples_leaf')
 plt.ylabel('Accuracy')
 plt.xlabel('Minimum number of samples in each leaf')
 plt.legend(loc='center left',bbox_to_anchor=(1,0.5), title='Dataset',fancybox=False)
-plt.savefig('RF_accuracy_number_of_samples_per_leaf.png',dpi=300)
+plt.savefig('RF_accuracy_number_of_samples_per_leaf.png',dpi=300,transparent=True)
+plt.tight_layout()
 plt.show()
 
 
 # ### Accuracy vs. Maximum features
 
-# In[243]:
+# In[18]:
 
 
 rf = RandomForestClassifier(
-    n_estimators=100,
+    n_estimators=500,
     max_features=min(10,n_feature),
     random_state=42,
     max_depth=5
@@ -355,7 +358,8 @@ res.plot('max_features')
 plt.ylabel('Accuracy')
 plt.xlabel('Maximum Number of Features selected')
 plt.legend(loc='center left',bbox_to_anchor=(1,0.5), title='Dataset',fancybox=False)
-plt.savefig('RF_accuracy_number_of_features.png',dpi=300)
+plt.savefig('RF_accuracy_number_of_features.png',dpi=300,transparent=True)
+plt.tight_layout()
 plt.show()
 
 
