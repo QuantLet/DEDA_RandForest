@@ -1,4 +1,4 @@
-Name of Quantlet:  German Credit Database
+Name of Quantlet:  German_Credit_DEDA
  
 Published in:      Digital Economy and Data Analysis
   
