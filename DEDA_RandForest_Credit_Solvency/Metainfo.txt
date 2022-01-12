@@ -1,0 +1,15 @@
+Name of Quantlet:  Credit_DEDA
+ 
+Published in:      Digital Economy and Data Analysis
+  
+Description:       Predicts the creditability from German Solvency Data with a Tree (CART) and a Random Forest. 
+ 
+Keywords:          machine learning, cart, random forest, prediction, classification, plot
+
+See also:          DEDA_RandForest,QID-1709-MVACARTGiniTree1
+
+Author:            Daniel Jacob (original code), Lucas Umann (adaptation to new data)
+  
+Submitted:         Wed, January 12 2022 by Lucas Umann
+  
+Datafile:          data_sample.csv 
