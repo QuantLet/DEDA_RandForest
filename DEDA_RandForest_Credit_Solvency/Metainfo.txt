@@ -8,7 +8,7 @@ Keywords:          machine learning, cart, random forest, prediction, classifica
 
 See also:          DEDA_RandForest,QID-1709-MVACARTGiniTree1
 
-Author:            Daniel Jacob (original code), Lucas Umann (adaptation to new data)
+Author:            Daniel Jacob (original code), Marius Sterling (original code), Lucas Umann (adaptation to new data)
   
 Submitted:         Wed, January 12 2022 by Lucas Umann
   
