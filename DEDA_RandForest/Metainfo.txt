@@ -8,7 +8,7 @@ Keywords : 'Random forest, feature importance, classification, decision tree, co
 
 See also : ''
 
-Author : Marius Sterling
+Author : Marius Sterling, updated by Andrei Theodor Ginavar (20250908)
 
 Submitted : November 26 2018 by Marius Sterling
 
