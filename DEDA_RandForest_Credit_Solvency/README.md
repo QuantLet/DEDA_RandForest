@@ -13,7 +13,7 @@ Description: Predicts the creditability from German Solvency Data with a Tree (C
 
 Keywords: machine learning, CART, random forest, prediction, classification, plot
 
-Author: Daniel Jacob (original code), Marius Sterling (original code), Lucas Umann (adaptation to new data), Xiaorui ZUO
+Author: Daniel Jacob (original code), Marius Sterling (original code), Lucas Umann (adaptation to new data), Xiaorui ZUO, 20250908 updated by Andrei Theodor Ginavar
 
 Submitted: 20240310
 
