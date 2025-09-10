@@ -17,7 +17,7 @@ See also:
 
 Author: Marius Sterling
 
-Submitted: November 26 2018 by Marius Sterling
+Submitted: November 26 2018 by Marius Sterling, 20250908 updated by Andrei Theodor Ginavar
 
 Example: 
 
