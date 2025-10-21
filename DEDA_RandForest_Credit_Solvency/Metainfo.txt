@@ -8,4 +8,4 @@ Keywords : 'machine learning, CART, random forest, prediction, classification, p
 
 Author : 'Daniel Jacob (original code), Marius Sterling (original code), Lucas Umann (adaptation to new data), Xiaorui ZUO, Andrei Theodor Ginavar (update 20250908)'
 
-Submitted : 20240310
+Submitted : 2024.03.10
